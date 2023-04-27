@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "projet-devops-m2"
+    registry = "goku95/projet-devops-m2"
     registryCredential = 'dockerhub'
     dockerImage = ''
   }
