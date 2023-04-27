@@ -18,4 +18,4 @@ spec:
       - image: goku95/projet-devops-m2:latest
         name: hello-cont
         ports:
-        - containerPort: 80
+        - containerPort: 49160
