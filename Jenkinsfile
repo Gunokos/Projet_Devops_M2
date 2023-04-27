@@ -39,6 +39,13 @@ pipeline {
         sh "docker rmi $registry:$BUILD_NUMBER"
       }
     }
+    stage('Deploy K8s') {
+      steps{
+	   script {
+        kubernetesDeploy(configs: "deployment-apache.yml", "service-apache.yml")
+      }
+				}
+    }
 }
   
 }
