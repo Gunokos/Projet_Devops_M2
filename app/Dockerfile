@@ -1,11 +1,16 @@
-# Utiliser une image de base contenant un serveur Apache
-FROM httpd:latest
+FROM ubuntu:20.04
 
-# Copier les fichiers de configuration Apache dans le conteneur
-COPY ./apache-config/httpd.conf /usr/local/apache2/conf/httpd.conf
+ENV CONTAINER_TIMEZONE="Europe/Brussels"
+RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONTAINER_TIMEZONE > /etc/timezone
 
-# Exposer le port 80 pour le serveur web
-EXPOSE 80
+RUN apt update && apt install -y apache2
 
-# Démarrer le serveur Apache au lancement du conteneur
-CMD ["httpd-foreground"]
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
+ENV APACHE_RUN_DIR /var/www/html
+
+RUN echo 'Hello, docker' > /var/www/index.html
+
+ENTRYPOINT ["/usr/sbin/apache2"]
+CMD ["-D", "FOREGROUND"]
