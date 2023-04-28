@@ -44,7 +44,7 @@ pipeline {
           dir ( 'app'){	  
 	   script {
 	   sh "minikube delete"
-	   sh "minikube start --vm-driver=none"
+	   sh "minikube start --vm-driver=docker"
        sh "kubectl apply -f deployment-apache.yml"
 	   sh "kubectl apply -f service-apache.yml"
 	   sh 'kubectl wait --for=condition=available --timeout=120s deployment-apache.yml'
