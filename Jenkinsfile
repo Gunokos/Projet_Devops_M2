@@ -44,10 +44,11 @@ pipeline {
           dir ( 'app'){	  
 	   script {
 	   sh "minikube start"
-	   sh "minikube status"
-	   sh "kubectl config use-context minikube"
        sh "kubectl apply -f deployment-apache.yml"
 	   sh "kubectl apply -f service-apache.yml"
+	   sh 'kubectl wait --for=condition=available --timeout=120s deployment-apache.yml'
+	   sh 'kubectl wait --for=condition=available --timeout=120s service-apache.yml'
+	   sh 'minikube service service-apache --url'
       }
 				}
 				}
