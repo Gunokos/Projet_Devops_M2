@@ -43,7 +43,8 @@ pipeline {
       steps{
           dir ( 'app'){	  
 	   script {
-        kubernetesDeploy(configs: "deployment-apache.yml", "service-apache.yml")
+        sh "kubectl apply -f deployment-apache.yml"
+		sh "kubectl apply -f service-apache.yml"
       }
 				}
 				}
