@@ -43,8 +43,11 @@ pipeline {
       steps{
           dir ( 'app'){	  
 	   script {
-        sh "kubectl apply -f deployment-apache.yml"
-		sh "kubectl apply -f service-apache.yml"
+	   sh "minikube start"
+	   sh "minikube status"
+	   sh "kubectl config use-context minikube"
+       sh "kubectl apply -f deployment-apache.yml"
+	   sh "kubectl apply -f service-apache.yml"
       }
 				}
 				}
