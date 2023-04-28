@@ -41,9 +41,11 @@ pipeline {
     }
     stage('Deploy K8s') {
       steps{
+          dir ( 'app'){	  
 	   script {
         kubernetesDeploy(configs: "deployment-apache.yml", "service-apache.yml")
       }
+				}
 				}
     }
 }
